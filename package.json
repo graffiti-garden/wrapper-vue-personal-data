@@ -1,0 +1,63 @@
+{
+  "name": "@graffiti-garden/wrapper-vue-personal-data",
+  "version": "0.0.1",
+  "description": "Store personal data on Graffiti with Vue.js",
+  "types": "./dist/plugin.d.ts",
+  "module": "./dist/plugin.mjs",
+  "main": "./dist/plugin.js",
+  "browser": "./dist/plugin.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/plugin.d.ts",
+        "default": "./dist/plugin.mjs"
+      },
+      "require": {
+        "types": "./dist/plugin.d.ts",
+        "default": "./dist/plugin.js"
+      }
+    }
+  },
+  "files": [
+    "src",
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "example": "cd example && vite",
+    "build:example": "cd example && vite build",
+    "build:js": "vite build",
+    "build:docs": "npm run build:js && typedoc --options typedoc.json",
+    "build": "npm run build:docs && npm run build:example && cp -r example/dist docs/example",
+    "prepublishOnly": "npm install && npm run build"
+  },
+  "author": "Theia Henderson",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graffiti-garden/wrapper-vue-personal-data.git"
+  },
+  "bugs": {
+    "url": "https://github.com/graffiti-garden/wrapper-vue-personal-data/issues"
+  },
+  "dependencies": {
+    "@graffiti-garden/api": "^0.3.0",
+    "@graffiti-garden/wrapper-vue": "^0.2.0"
+  },
+  "devDependencies": {
+    "@graffiti-garden/implementation-local": "^0.3.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/typescript-plugin": "^2.2.0",
+    "typedoc": "^0.27.6",
+    "typedoc-plugin-vue": "^1.4.0",
+    "vite": "^5.4.14",
+    "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vue": "^3.5.13"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.13",
+    "@graffiti-garden/wrapper-vue": "^0.2.0"
+  }
+}
