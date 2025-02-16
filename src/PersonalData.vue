@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="Schema extends JSONSchema">
-import { ref, watch } from "vue";
+import { ref, watch, onScopeDispose } from "vue";
 import type {
     GraffitiSession,
     GraffitiObject,
@@ -21,6 +21,13 @@ const props = withDefaults(
         public: false,
     },
 );
+
+// Store the original value
+const initialValue = JSON.stringify(props.modelValue);
+onScopeDispose(() => {
+    // Reset the value when no longer using the object
+    emit("update:modelValue", JSON.parse(initialValue));
+});
 
 const emit = defineEmits<{
     "update:modelValue": [value: GraffitiObject<Schema>["value"]];
