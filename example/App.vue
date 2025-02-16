@@ -70,26 +70,6 @@ const myData = ref({
             v-if="$graffitiSession.value"
             v-model="myData"
             :name="name"
-            :schema="{
-                properties: {
-                    value: {
-                        properties: {
-                            myProperty: { type: 'string' },
-                            myArray: {
-                                type: 'array',
-                                items: {
-                                    type: 'object',
-                                    properties: {
-                                        myNestedProperty: { type: 'string' },
-                                    },
-                                    required: ['myNestedProperty'],
-                                },
-                            },
-                        },
-                        required: ['myProperty', 'myArray'],
-                    },
-                },
-            }"
             :session="$graffitiSession.value"
             :autosave="autosave"
             v-slot="{ save }"

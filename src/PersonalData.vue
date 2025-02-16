@@ -1,18 +1,13 @@
-<script setup lang="ts" generic="Schema extends JSONSchema">
+<script setup lang="ts">
 import { ref, watch, onScopeDispose } from "vue";
-import type {
-    GraffitiSession,
-    GraffitiObject,
-    JSONSchema,
-} from "@graffiti-garden/api";
+import type { GraffitiSession, JSONSchema } from "@graffiti-garden/api";
 import { useGraffiti, useGraffitiDiscover } from "@graffiti-garden/wrapper-vue";
 
 const props = withDefaults(
     defineProps<{
-        modelValue: GraffitiObject<Schema>["value"];
+        modelValue: {};
         name: string;
         session: GraffitiSession;
-        schema: Schema;
         autosave?: boolean;
         public?: boolean;
     }>(),
@@ -30,7 +25,7 @@ onScopeDispose(() => {
 });
 
 const emit = defineEmits<{
-    "update:modelValue": [value: GraffitiObject<Schema>["value"]];
+    "update:modelValue": [value: {}];
 }>();
 
 const nameActorSchema = {
@@ -46,21 +41,9 @@ const nameActorSchema = {
     },
 } as const satisfies JSONSchema;
 
-const { results, poll, isPolling } = useGraffitiDiscover<Schema>(
+const { results, poll, isPolling } = useGraffitiDiscover(
     () => [props.session.actor],
-    () => {
-        const schema =
-            typeof props.schema === "object"
-                ? props.schema
-                : ({} as Schema & object);
-        return {
-            ...schema,
-            properties: {
-                ...schema.properties,
-                ...nameActorSchema.properties,
-            },
-        } as const;
-    },
+    nameActorSchema,
     () => props.session,
 );
 
@@ -68,12 +51,10 @@ watch(
     results,
     () => {
         if (results.value && results.value.length) {
-            const result: GraffitiObject<Schema> & { tombstone: false } =
-                results.value.toSorted((a, b) => {
-                    return b.lastModified - a.lastModified;
-                })[0];
-            const value = result.value as GraffitiObject<Schema>["value"];
-            emit("update:modelValue", value);
+            const result = results.value.toSorted((a, b) => {
+                return b.lastModified - a.lastModified;
+            })[0];
+            emit("update:modelValue", result.value);
         }
     },
     { immediate: true },

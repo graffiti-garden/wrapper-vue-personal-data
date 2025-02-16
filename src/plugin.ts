@@ -40,17 +40,15 @@ export const GraffitiPersonalDataPlugin: Plugin = {
 };
 
 /**
- * A Vue [renderless component](https://vuejs.org/guide/components/slots#renderless-components)
- * for reading and writing personal information using the [Graffiti API](https://api.graffiti.garden/classes/Graffiti.html).
+ * A Vue component for reading and writing personal information using the [Graffiti API](https://api.graffiti.garden/classes/Graffiti.html).
  * Inspired by the [madata Vue component](https://madata.dev/components/vue/).
  *
  * The component takes the following props:
  * - `v-model`: A two-way binding to the personal data value.
- * - `name` (string): The name of the personal data to read or write.
- * - `session`: A Graffiti Session object from a successful login.
- * - `schema`: A [JSON Schema](https://json-schema.org/) object describing the personal data.
- * - `autosave` (boolean): Whether to automatically save changes to the personal data. Default is `false`.
- * - `public` (boolean): Whether the personal data is publicly available. Default is `false`.
+ * - `name` (string): The name of the personal data to read or write. Similar to a file name: different names refer to different personal data.
+ * - `session`: A Graffiti Session object from a successful login. This component can't be used while logged out.
+ * - `autosave` (boolean, optional): Whether to automatically save changes to the personal data. Default is `false`.
+ * - `public` (boolean, optional): Whether the personal data is publicly available. Default is `false`.
  *
  * It exposes the following slots:
  * - `save` (()=> Promise<void>): A function to save the personal data.

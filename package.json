@@ -1,6 +1,6 @@
 {
   "name": "@graffiti-garden/wrapper-vue-personal-data",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Store personal data on Graffiti with Vue.js",
   "types": "./dist/plugin.d.ts",
   "module": "./dist/plugin.mjs",
