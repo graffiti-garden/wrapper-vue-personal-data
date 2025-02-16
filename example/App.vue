@@ -15,6 +15,14 @@ const myData = ref({
 </script>
 
 <template>
+    <p>
+        View the source code of this example
+        <a
+            href="https://github.com/graffiti-garden/wrapper-vue-personal-data/tree/main/example"
+        >
+            on GitHub</a
+        >.
+    </p>
     <p v-if="$graffitiSession.value">
         Logged in as: {{ $graffitiSession.value.actor }}
         <button @click="$graffiti.logout($graffitiSession.value)">

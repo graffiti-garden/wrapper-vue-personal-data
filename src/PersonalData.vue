@@ -1,9 +1,9 @@
-<script setup lang="ts" generic="Schema extends JSONSchema4">
+<script setup lang="ts" generic="Schema extends JSONSchema">
 import { ref, watch } from "vue";
 import type {
     GraffitiSession,
     GraffitiObject,
-    JSONSchema4,
+    JSONSchema,
 } from "@graffiti-garden/api";
 import { useGraffiti, useGraffitiDiscover } from "@graffiti-garden/wrapper-vue";
 
@@ -26,20 +26,34 @@ const emit = defineEmits<{
     "update:modelValue": [value: GraffitiObject<Schema>["value"]];
 }>();
 
-const { results, poll, isPolling } = useGraffitiDiscover(
+const nameActorSchema = {
+    properties: {
+        name: {
+            type: "string",
+            enum: [props.name],
+        },
+        actor: {
+            type: "string",
+            enum: [props.session.actor],
+        },
+    },
+} as const satisfies JSONSchema;
+
+const { results, poll, isPolling } = useGraffitiDiscover<Schema>(
     () => [props.session.actor],
-    () =>
-        ({
-            ...props.schema,
+    () => {
+        const schema =
+            typeof props.schema === "object"
+                ? props.schema
+                : ({} as Schema & object);
+        return {
+            ...schema,
             properties: {
-                name: {
-                    enum: [props.name],
-                },
-                actor: {
-                    enum: [props.session.actor],
-                },
+                ...schema.properties,
+                ...nameActorSchema.properties,
             },
-        }) as const,
+        } as const;
+    },
     () => props.session,
 );
 
@@ -47,10 +61,12 @@ watch(
     results,
     () => {
         if (results.value && results.value.length) {
-            const result = results.value.sort((a, b) => {
-                return b.lastModified - a.lastModified;
-            })[0].value as GraffitiObject<Schema>["value"];
-            emit("update:modelValue", result);
+            const result: GraffitiObject<Schema> & { tombstone: false } =
+                results.value.toSorted((a, b) => {
+                    return b.lastModified - a.lastModified;
+                })[0];
+            const value = result.value as GraffitiObject<Schema>["value"];
+            emit("update:modelValue", value);
         }
     },
     { immediate: true },
