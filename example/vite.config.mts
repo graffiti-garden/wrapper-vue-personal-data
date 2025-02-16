@@ -9,5 +9,5 @@ export default defineConfig({
       include: ["events"],
     }),
   ],
-  base: "/wrapper-vue-data/example",
+  base: "wrapper-vue-personal-data/example",
 });

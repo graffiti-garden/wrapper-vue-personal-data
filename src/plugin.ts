@@ -41,7 +41,7 @@ export const GraffitiPersonalDataPlugin: Plugin = {
 
 /**
  * A Vue [renderless component](https://vuejs.org/guide/components/slots#renderless-components)
- * for reading and writing personal information using the Graffiti API.
+ * for reading and writing personal information using the [Graffiti API](https://api.graffiti.garden/classes/Graffiti.html).
  * Inspired by the [madata Vue component](https://madata.dev/components/vue/).
  *
  * The component takes the following props:
@@ -57,5 +57,7 @@ export const GraffitiPersonalDataPlugin: Plugin = {
  * - `isSaving` (Ref<boolean>): A reactive signal for whether the personal data is currently being saved.
  * - `poll` (()=> Promise<void>): A function to poll the personal data.
  * - `isPolling` (Ref<boolean>): A reactive signal for whether the personal data is currently being polled.
+ *
+ * See [a live example](../example) or the [example's source code](https://github.com/graffiti-garden/wrapper-vue-personal-data/tree/main/example).
  */
 export const GraffitiPersonalData = PersonalData;

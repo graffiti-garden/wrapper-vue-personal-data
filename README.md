@@ -1,12 +1,15 @@
 # Graffiti Personal Data
 
+A Vue component for reading and writing personal information using the
+[Graffiti API](https://api.graffiti.garden/classes/Graffiti.html).
+Inspired by the [madata Vue component](https://madata.dev/components/vue/).
+
 [**Read the API documentation**](https://graffiti.garden/wrapper-vue-personal-data/).
 
 ## Installation
 
 You must install this package along with [Vue.js](https://vuejs.org),
 an implementation of the Graffiti API, and the [Graffiti Vue wrapper](https://vue.graffiti.garden/variables/GrafittiPlugin.html).
-
 In this example, we will use the [local implementation](https://github.com/graffiti-garden/implementation-local)
 of the Graffiti API, but any other would be similar.
 In node.js, simply install them with npm:
