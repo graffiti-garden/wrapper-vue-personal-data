@@ -15,7 +15,7 @@ declare module "vue" {
  * Vue [GraffitiPlugin](https://vue.graffiti.garden/variables/GraffitiPlugin.html)
  * and an implementation of Graffiti.
  *
- * The provided component is {@link GraffitiPersonalData},
+ * The provided component is [GraffitiPersonalData](./GraffitiPersonalData.html#graffiti-personal-data-vue-component)
  * which is inspired by the [madata Vue component](https://madata.dev/components/vue/).
  *
  * @example
@@ -40,6 +40,8 @@ export const GraffitiPersonalDataPlugin: Plugin = {
 };
 
 /**
+ * # Graffiti Personal Data Vue Component
+ *
  * A Vue component for reading and writing personal information using the [Graffiti API](https://api.graffiti.garden/classes/Graffiti.html).
  * Inspired by the [madata Vue component](https://madata.dev/components/vue/).
  *
